@@ -32,8 +32,8 @@ export function redirect(
   next: NextFunction,
 ): void {
   if (req.path.substr(-1) === '/' && req.path.length > 1)
-    res.redirect(301, req.path.slice(0, -1) + req.url.slice(req.path.length));
-  else next();
+    {res.redirect(301, req.path.slice(0, -1) + req.url.slice(req.path.length));}
+  else {next();}
 }
 
 /**

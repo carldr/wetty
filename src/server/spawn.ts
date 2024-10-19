@@ -40,7 +40,7 @@ export async function spawn(
       term.resize(cols, rows);
     })
     .on('input', input => {
-      if (!isUndefined(term)) term.write(input);
+      if (!isUndefined(term)) {term.write(input);}
     })
     .on('disconnect', () => {
       term.kill();

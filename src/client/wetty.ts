@@ -25,9 +25,9 @@ function onResize(term: Term): () => void {
 
 socket.on('connect', () => {
   const term = terminal(socket);
-  if (_.isUndefined(term)) return;
+  if (_.isUndefined(term)) {return;}
 
-  if (!_.isNull(overlay)) overlay.style.display = 'none';
+  if (!_.isNull(overlay)) {overlay.style.display = 'none';}
   window.addEventListener('beforeunload', verifyPrompt, false);
   window.addEventListener('resize', onResize(term), false);
 
@@ -67,6 +67,6 @@ socket.on('connect', () => {
     .on('logout', disconnect)
     .on('disconnect', disconnect)
     .on('error', (err: string | null) => {
-      if (err) disconnect(err);
+      if (err) {disconnect(err);}
     });
 });

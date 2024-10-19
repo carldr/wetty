@@ -53,7 +53,7 @@ export function configureTerm(term: Term): void {
   document.addEventListener(
     'mouseup',
     () => {
-      if (term.hasSelection()) copySelected(term.getSelection());
+      if (term.hasSelection()) {copySelected(term.getSelection());}
     },
     false,
   );

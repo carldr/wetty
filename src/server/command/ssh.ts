@@ -36,7 +36,7 @@ export function sshOptions(
 }
 
 function parseCommand(command: string, path?: string): string {
-  if (command === 'login' && isUndefined(path)) return '';
+  if (command === 'login' && isUndefined(path)) {return '';}
   return !isUndefined(path)
     ? `$SHELL -c "cd ${path};${command === 'login' ? '$SHELL' : command}"`
     : command;

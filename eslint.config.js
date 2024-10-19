@@ -9,6 +9,8 @@ export default [
   ...tseslint.configs.recommended,
   {
     rules: {
+      curly: ['error', 'all'],
+
       '@typescript-eslint/no-unused-vars': [
         'error',
         {

@@ -18,9 +18,11 @@ export const policies =
           ],
         },
       },
-      frameguard: false
+      frameguard: false,
     };
-    if (!allowIframe) args.frameguard = { action: 'sameorigin' };
+    if (!allowIframe) {
+      args.frameguard = { action: 'sameorigin' };
+    }
 
     helmet(args)(req, res, next);
   };
