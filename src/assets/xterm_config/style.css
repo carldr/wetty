@@ -1,5 +1,7 @@
+/* Configurator styles.  We just hide the options */
+
 html {
-  background-color: black;
+  background-color: #444;
 }
 html,
 body {
@@ -8,7 +10,6 @@ body {
 body {
   display: flex;
   flex-flow: column nowrap;
-  font-family: monospace;
   font-size: 1rem;
   color: white;
 }

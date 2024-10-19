@@ -16,7 +16,38 @@ export class Term extends Terminal {
   loadOptions: () => Options;
 
   constructor(socket: Socket) {
-    super({ allowProposedApi: true });
+    super({
+      allowProposedApi: true,
+      fontFamily: 'CaskaydiaCove Nerd Font Light, monospace',
+      lineHeight: 1.2,
+      theme: {
+        background: '#1f222d',
+        foreground: '#cccccc',
+        selectionBackground: '#313752',
+        selectionForeground: '#ffffff',
+
+        black: '#272a37',
+        red: '#ff605c',
+        green: '#5bf68e',
+        yellow: '#f6f65e',
+        blue: '#8dadfb',
+        magenta: '#ff92d0',
+        cyan: '#89eaff',
+        white: '#bfbfbf',
+
+        brightBlack: '#4e4e4e',
+        brightRed: '#ff8075',
+        brightGreen: '#67f5a1',
+        brightYellow: '#f4f884',
+        brightBlue: '#acbaf9',
+        brightMagenta: '#ffa8d9',
+        brightCyan: '#8eecfd',
+        brightWhite: '#ffffff',
+
+        cursor: '#c7c7c7',
+        cursorAccent: '#fffeff',
+      },
+    });
     this.socket = socket;
     this.fitAddon = new FitAddon();
     this.loadAddon(this.fitAddon);

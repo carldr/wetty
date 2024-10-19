@@ -3,6 +3,7 @@ import { faCogs } from '@fortawesome/free-solid-svg-icons';
 import _ from 'lodash';
 
 import '../assets/scss/styles.scss';
+import '../assets/xterm_override.scss';
 
 import { disconnect } from './wetty/disconnect';
 import { overlay } from './wetty/disconnect/elements';
@@ -25,9 +26,13 @@ function onResize(term: Term): () => void {
 
 socket.on('connect', () => {
   const term = terminal(socket);
-  if (_.isUndefined(term)) {return;}
+  if (_.isUndefined(term)) {
+    return;
+  }
 
-  if (!_.isNull(overlay)) {overlay.style.display = 'none';}
+  if (!_.isNull(overlay)) {
+    overlay.style.display = 'none';
+  }
   window.addEventListener('beforeunload', verifyPrompt, false);
   window.addEventListener('resize', onResize(term), false);
 
@@ -67,6 +72,8 @@ socket.on('connect', () => {
     .on('logout', disconnect)
     .on('disconnect', disconnect)
     .on('error', (err: string | null) => {
-      if (err) {disconnect(err);}
+      if (err) {
+        disconnect(err);
+      }
     });
 });
