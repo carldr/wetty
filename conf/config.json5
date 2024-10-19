@@ -16,6 +16,8 @@
     allowIframe: true, // Allow wetty to be embedded in an iframe
   },
 
+  signingSecret: 'something-super-secret',
+
   forceSSH: false, // Force sshing to local machine over login if running as root
   command: 'login', // Command to run on server. Login will use ssh if connecting to different server
 
