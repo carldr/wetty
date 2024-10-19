@@ -1,22 +1,22 @@
 {
   ssh: {
-    host:       'development',        // Server to ssh to
-    auth:       'publickey',          // ssh authentication, method. Defaults to "password", you can use "publickey,password" instead
-    port:       22,                   // Port to ssh to
-    knownHosts: '/dev/null',          // ssh knownHosts file to use
-    config:     './wetty_ssh_config', // alternative ssh configuration file, see "-F" option in ssh(1)
+    auth: 'publickey', // ssh authentication, method. Defaults to "password", you can use "publickey,password" instead
+    port: 22, // Port to ssh to
+    knownHosts: '/dev/null', // ssh knownHosts file to use
+    config: './wetty_ssh_config', // alternative ssh configuration file, see "-F" option in ssh(1)
+    allowRemoteHosts: true,
   },
 
-  server:  {
-    base:         '/wetty/',                           // URL base to serve resources from
-    port:         22222,                               // Port to listen on
-    host:         '0.0.0.0',                           // address to listen on
-    title:        'WeTTY - The Web Terminal Emulator', // Page title
-    bypassHelmet: false,                               // Disable Helmet security checks
-    allowIframe:  true,                                // Allow wetty to be embedded in an iframe
+  server: {
+    base: '/wetty/', // URL base to serve resources from
+    port: 22222, // Port to listen on
+    host: '0.0.0.0', // address to listen on
+    title: 'WeTTY - The Web Terminal Emulator', // Page title
+    bypassHelmet: false, // Disable Helmet security checks
+    allowIframe: true, // Allow wetty to be embedded in an iframe
   },
 
-  forceSSH: false,  // Force sshing to local machine over login if running as root
+  forceSSH: false, // Force sshing to local machine over login if running as root
   command: 'login', // Command to run on server. Login will use ssh if connecting to different server
 
   /*
