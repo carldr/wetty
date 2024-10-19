@@ -5,7 +5,7 @@ import { Terminal } from '@xterm/xterm';
 import _ from 'lodash';
 
 import { terminal as termElement } from './disconnect/elements';
-import { configureTerm } from './term/confiruragtion';
+import { configureTerm } from './term/configuration';
 import { loadOptions } from './term/load';
 import type { Options } from './term/options';
 import type { Socket } from 'socket.io-client';
@@ -27,7 +27,9 @@ export class Term extends Terminal {
 
   resizeTerm(): void {
     this.refresh(0, this.rows - 1);
-    if (this.shouldFitTerm) {this.fitAddon.fit();}
+    if (this.shouldFitTerm) {
+      this.fitAddon.fit();
+    }
     this.socket.emit('resize', { cols: this.cols, rows: this.rows });
   }
 
@@ -48,7 +50,9 @@ declare global {
 
 export function terminal(socket: Socket): Term | undefined {
   const term = new Term(socket);
-  if (_.isNull(termElement)) {return undefined;}
+  if (_.isNull(termElement)) {
+    return undefined;
+  }
   termElement.innerHTML = '';
   term.open(termElement);
   configureTerm(term);

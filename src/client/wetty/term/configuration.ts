@@ -1,6 +1,6 @@
 import { editor } from '../disconnect/elements';
-import { copySelected, copyShortcut } from './confiruragtion/clipboard';
-import { onInput } from './confiruragtion/editor';
+import { copySelected, copyShortcut } from './configuration/clipboard';
+import { onInput } from './configuration/editor';
 import { loadOptions } from './load';
 import type { Options } from './options';
 import type { Term } from '../term';
@@ -42,7 +42,7 @@ export function configureTerm(term: Term): void {
   }
   editor.addEventListener('load', editorOnLoad);
 
-  toggle.addEventListener('click', e => {
+  toggle.addEventListener('click', (e) => {
     editor?.contentWindow?.loadOptions(loadOptions());
     optionsElem.classList.toggle('opened');
     e.preventDefault();
@@ -53,7 +53,9 @@ export function configureTerm(term: Term): void {
   document.addEventListener(
     'mouseup',
     () => {
-      if (term.hasSelection()) {copySelected(term.getSelection());}
+      if (term.hasSelection()) {
+        copySelected(term.getSelection());
+      }
     },
     false,
   );
