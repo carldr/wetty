@@ -49,7 +49,6 @@ module.exports = {
       },
     ],
     'import/prefer-default-export': 'off',
-    'import/prefer-default-export': 'off',
     'linebreak-style': ['error', 'unix'],
     'lines-between-class-members': [
       'error',

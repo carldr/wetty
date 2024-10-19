@@ -1,0 +1,10 @@
+{
+  "javascript.format.enable": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": false,
+  "editor.formatOnSaveMode": "file",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  }
+}
