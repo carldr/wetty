@@ -15,7 +15,7 @@ function onCompleteFile(bufferCharacters: string): void {
   // Try to decode it as base64, if it fails we assume it's not base64
   try {
     fileCharacters = window.atob(fileCharacters);
-  } catch (err) {
+  } catch (_err) {
     // Assuming it's not base64...
   }
 
@@ -43,7 +43,7 @@ function onCompleteFile(bufferCharacters: string): void {
     if (fileNameBase64 !== undefined) {
       fileName = window.atob(fileNameBase64);
     }
-  } catch (err) {
+  } catch (_err) {
     // Filename wasn't base64-encoded so let's ignore it
   }
 

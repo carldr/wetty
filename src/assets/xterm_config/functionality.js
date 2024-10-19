@@ -134,7 +134,6 @@ window.loadOptions = config => {
 };
 
 if (window.top === window)
-  // eslint-disable-next-line no-alert
   alert(
     'Error: Page is top level. This page is supposed to be accessed from inside WeTTY.',
   );

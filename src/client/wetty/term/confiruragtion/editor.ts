@@ -17,7 +17,7 @@ export const onInput = (term: Term, updated: Options) => {
     editor.classList.remove('error');
     localStorage.options = updatedConf;
   } catch (e) {
-    console.error('Configuration Error', e); // eslint-disable-line no-console
+    console.error('Configuration Error', e);
     editor.classList.add('error');
   }
 };

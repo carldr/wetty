@@ -13,7 +13,6 @@ import { start } from './server.js';
 import { loadConfigFile, mergeCliConf } from './shared/config.js';
 import { setLevel, logger } from './shared/logger.js';
 
-/* eslint-disable @typescript-eslint/no-var-requires */
 const require = createRequire(import.meta.url);
 const packageJson = require('../package.json');
 

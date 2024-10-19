@@ -20,7 +20,6 @@ export async function address(
   } else {
     const userFromPathMatch = referer?.match('.+/ssh/([^/]+)$');
     if (userFromPathMatch) {
-      // eslint-disable-next-line prefer-destructuring
       username = userFromPathMatch[1].split('?')[0];
     } else if (user) {
       username = user;

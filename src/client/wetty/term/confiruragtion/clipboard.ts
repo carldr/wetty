@@ -20,7 +20,7 @@ export function copySelected(text: string): boolean {
     try {
       document.execCommand('copy');
       return true;
-    } catch (ex) {
+    } catch (_ex) {
       return false;
     } finally {
       document.body.removeChild(textarea);

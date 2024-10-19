@@ -93,7 +93,7 @@ function getPathName(req: Request): string | undefined {
   try {
     const url = parseUrl(req);
     return url?.pathname ? url.pathname : undefined;
-  } catch (e) {
+  } catch (_e) {
     return undefined;
   }
 }
