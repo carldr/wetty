@@ -83,6 +83,9 @@ importers:
       serve-static:
         specifier: ^1.16.2
         version: 1.16.2
+      signed:
+        specifier: ^2.1.0
+        version: 2.1.0
       socket.io:
         specifier: ^4.8.0
         version: 4.8.0
@@ -2544,6 +2547,9 @@ packages:
   signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
+
+  signed@2.1.0:
+    resolution: {integrity: sha512-QEw2xsFVbR+4xy+7OeUpMCHlJdR+UDikzJuDrrHXtTgcVvXDWDgbcbvgZV13aVkHVyosuuZPAUQtxgTthb0vRA==}
 
   simple-swizzle@0.2.2:
     resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
@@ -5390,6 +5396,10 @@ snapshots:
   signal-exit@3.0.7: {}
 
   signal-exit@4.1.0: {}
+
+  signed@2.1.0:
+    dependencies:
+      '@types/express': 4.17.21
 
   simple-swizzle@0.2.2:
     dependencies:
