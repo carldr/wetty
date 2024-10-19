@@ -60,6 +60,8 @@ Options:
   --command, -c   command to run in shell                               [string]
   --allow-iframe  Allow wetty to be embedded in an iframe, defaults to allowing
                   same origin                                          [boolean]
+  --allow-remote-hosts ....
+  --allow-remote-command ....
 ```
 
 Open your browser on `http://yourserver:3000/wetty` and you will prompted to
