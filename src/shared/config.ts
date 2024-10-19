@@ -8,6 +8,7 @@ import {
   forceSSHDefault,
   defaultCommand,
   defaultLogLevel,
+  signingSecretDefault,
 } from './defaults.js';
 import type { Config, SSH, Server, SSL } from './interfaces';
 import type winston from 'winston';
@@ -74,12 +75,14 @@ export async function loadConfigFile(filepath?: string): Promise<Config> {
       ssh: sshDefault,
       server: serverDefault,
       command: defaultCommand,
+      signingSecret: signingSecretDefault,
       forceSSH: forceSSHDefault,
       logLevel: defaultLogLevel,
     };
   }
   const content = await fs.readFile(path.resolve(filepath));
   const parsed = JSON5.parse(content.toString()) as Config;
+
   return {
     ssh: isUndefined(parsed.ssh)
       ? sshDefault
@@ -88,6 +91,7 @@ export async function loadConfigFile(filepath?: string): Promise<Config> {
       ? serverDefault
       : Object.assign(serverDefault, parsed.server),
     command: isUndefined(parsed.command) ? defaultCommand : `${parsed.command}`,
+    signingSecret: parsed.signingSecret,
     forceSSH: isUndefined(parsed.forceSSH)
       ? forceSSHDefault
       : ensureBoolean(parsed.forceSSH),
@@ -129,6 +133,7 @@ export function mergeCliConf(opts: Arguments, config: Config): Config {
     cert: opts['ssl-cert'],
     ...config.ssl,
   } as SSL;
+
   return {
     ssh: objectAssign(config.ssh, {
       user: opts['ssh-user'],
@@ -149,6 +154,9 @@ export function mergeCliConf(opts: Arguments, config: Config): Config {
       title: opts.title,
       allowIframe: opts['allow-iframe'],
     }) as Server,
+    signingSecret: isUndefined(opts['signing-secret'])
+      ? config.signingSecret
+      : (opts['signing-secret'] as string | undefined),
     command: isUndefined(opts.command) ? config.command : `${opts.command}`,
     forceSSH: isUndefined(opts['force-ssh'])
       ? config.forceSSH

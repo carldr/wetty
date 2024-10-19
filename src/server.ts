@@ -4,6 +4,7 @@
  */
 import express from 'express';
 import gc from 'gc-stats';
+import url from 'url';
 import { Gauge, collectDefaultMetrics } from 'prom-client';
 import { getCommand } from './server/command.js';
 import { gcMetrics } from './server/metrics.js';
@@ -19,6 +20,7 @@ import { logger as getLogger } from './shared/logger.js';
 import type { SSH, SSL, Server } from './shared/interfaces.js';
 import type { Express } from 'express';
 import type SocketIO from 'socket.io';
+import { Signature } from 'signed';
 
 export * from './shared/interfaces.js';
 export { logger as getLogger } from './shared/logger.js';
@@ -37,16 +39,26 @@ export const start = (
   ssh: SSH = sshDefault,
   serverConf: Server = serverDefault,
   command: string = defaultCommand,
+  signingSecret: string | undefined = undefined,
   forcessh: boolean = forceSSHDefault,
   ssl: SSL | undefined = undefined,
 ): Promise<SocketIO.Server> =>
-  decorateServerWithSsh(express(), ssh, serverConf, command, forcessh, ssl);
+  decorateServerWithSsh(
+    express(),
+    ssh,
+    serverConf,
+    command,
+    signingSecret,
+    forcessh,
+    ssl,
+  );
 
 export async function decorateServerWithSsh(
   app: Express,
   ssh: SSH = sshDefault,
   serverConf: Server = serverDefault,
   command: string = defaultCommand,
+  signingSecret: string | undefined = undefined,
   forcessh: boolean = forceSSHDefault,
   ssl: SSL | undefined = undefined,
 ): Promise<SocketIO.Server> {
@@ -74,6 +86,40 @@ export async function decorateServerWithSsh(
      */
     logger.info('Connection accepted.');
     wettyConnections.inc();
+
+    const {
+      request: {
+        headers: { referer },
+      },
+    } = socket;
+
+    const queryString = url.parse(referer || '', true).query;
+    if (queryString.signed || signingSecret) {
+      // We are trying to sign the URL parameters
+      if (!signingSecret || !queryString.signed || !referer) {
+        logger.error(
+          'One of signingSecret or the `signed` query parameter is missing',
+        );
+
+        socket.disconnect();
+        wettyConnections.dec();
+        return;
+      }
+
+      const signature = new Signature({
+        secret: signingSecret,
+      });
+
+      try {
+        signature.verify(referer);
+      } catch (error) {
+        logger.info("Couldn't verify URL signature", { err: error });
+
+        socket.disconnect();
+        wettyConnections.dec();
+        return;
+      }
+    }
 
     try {
       const args = await getCommand(socket, ssh, command, forcessh);

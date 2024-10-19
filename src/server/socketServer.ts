@@ -25,7 +25,7 @@ export async function server(
     title,
   });
 
-  const client = html(basePath, title);
+  const client = html(basePath, title, allowIframe);
   app
     .disable('x-powered-by')
     .use(metricMiddleware(basePath))

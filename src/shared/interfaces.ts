@@ -36,6 +36,7 @@ export interface Server {
 export interface Config {
   ssh: SSH;
   server: Server;
+  signingSecret: string | undefined;
   forceSSH: boolean;
   command: string;
   logLevel: typeof winston.level;

@@ -109,6 +109,11 @@ const opts = yargs(hideBin(process.argv))
       'Allow WeTTY to use the `command` and `path` params in a url as command and working directory on ssh host',
     type: 'boolean',
   })
+  .option('signing-secret', {
+    description:
+      'A shared secret that we can use to verify the signing of URL parameters passed to WeTTY',
+    type: 'string',
+  })
   .option('log-level', {
     description: 'set log level of wetty server',
     type: 'string',
@@ -123,10 +128,19 @@ const opts = yargs(hideBin(process.argv))
 
 if (!opts.help) {
   loadConfigFile(opts.conf)
-    .then((config) => mergeCliConf(opts, config))
+    .then((config) => {
+      return mergeCliConf(opts, config);
+    })
     .then((conf) => {
       setLevel(conf.logLevel);
-      start(conf.ssh, conf.server, conf.command, conf.forceSSH, conf.ssl);
+      start(
+        conf.ssh,
+        conf.server,
+        conf.command,
+        conf.signingSecret,
+        conf.forceSSH,
+        conf.ssl,
+      );
     })
     .catch((err: Error) => {
       logger().error('error in server', { err });

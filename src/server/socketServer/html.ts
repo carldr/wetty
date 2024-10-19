@@ -3,10 +3,19 @@ import type { Request, Response, RequestHandler } from 'express';
 
 const jsFiles = isDev ? ['dev.js', 'wetty.js'] : ['wetty.js'];
 
-const render = (
-  title: string,
-  base: string,
-): string => `<!doctype html>
+const render = (title: string, base: string, allowIframe: boolean): string => {
+  let reload =
+    '<input type="button" onclick="location.reload();" value="reconnect" />';
+
+  if (allowIframe) {
+    reload = `
+      <div style="display: flex; justify-content: center; color: white; margin-top: 20px;">
+        <strong>Refresh page to try again.</strong>
+      </div>
+    `;
+  }
+
+  return `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf8">
@@ -20,7 +29,8 @@ const render = (
     <div id="overlay">
       <div class="error">
         <div id="msg"></div>
-        <input type="button" onclick="location.reload();" value="reconnect" />
+
+        ${reload}
       </div>
     </div>
     <div id="options">
@@ -32,20 +42,17 @@ const render = (
     </div>
     <div id="terminal"></div>
     ${jsFiles
-        .map(file => `    <script type="module" src="${base}/client/${file}"></script>`)
-        .join('\n')
-    }
+      .map(
+        (file) =>
+          `    <script type="module" src="${base}/client/${file}"></script>`,
+      )
+      .join('\n')}
   </body>
 </html>`;
-
-export const html = (base: string, title: string): RequestHandler => (
-  _req: Request,
-  res: Response,
-): void => {
-  res.send(
-    render(
-      title,
-      base,
-    ),
-  );
 };
+
+export const html =
+  (base: string, title: string, allowIframe: boolean): RequestHandler =>
+  (_req: Request, res: Response): void => {
+    res.send(render(title, base, allowIframe));
+  };

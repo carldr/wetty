@@ -22,6 +22,7 @@ export const serverDefault: Server = {
   allowIframe: process.env.ALLOWIFRAME === 'true' || false,
 };
 
+export const signingSecretDefault = process.env.SIGNEDSECRET || undefined;
 export const forceSSHDefault = process.env.FORCESSH === 'true' || false;
 export const defaultCommand = process.env.COMMAND || 'login';
 export const defaultLogLevel = isDev ? 'debug' : 'http';
