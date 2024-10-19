@@ -63,7 +63,7 @@ export async function decorateServerWithSsh(
   ssl: SSL | undefined = undefined,
 ): Promise<SocketIO.Server> {
   const logger = getLogger();
-  if (ssh.key) {
+  if (ssh.key && !signingSecret) {
     logger.warn(`!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Password-less auth enabled using private key from ${ssh.key}.
 ! This is dangerous, anything that reaches the wetty server
