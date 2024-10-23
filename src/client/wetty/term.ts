@@ -9,6 +9,7 @@ import { configureTerm } from './term/configuration';
 import { loadOptions } from './term/load';
 import type { Options } from './term/options';
 import type { Socket } from 'socket.io-client';
+import { WebglAddon } from '@xterm/addon-webgl';
 
 export class Term extends Terminal {
   socket: Socket;
@@ -50,9 +51,17 @@ export class Term extends Terminal {
     });
     this.socket = socket;
     this.fitAddon = new FitAddon();
-    this.loadAddon(this.fitAddon);
+
+    const webgl = new WebglAddon();
+    webgl.onContextLoss((_e) => {
+      webgl.dispose();
+    });
+    this.loadAddon(webgl);
+
     this.loadAddon(new WebLinksAddon());
     this.loadAddon(new ImageAddon());
+    this.loadAddon(this.fitAddon);
+
     this.loadOptions = loadOptions;
   }
 
